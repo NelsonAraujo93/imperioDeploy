@@ -6,7 +6,7 @@ const port = 3900;
 //const pott = 8080;
 const fs = require('fs');
 //const https = require('https');
-const http = require('https');
+const https = require('https');
 
 const privateKey = fs.readFileSync('/etc/letsencrypt/live/imperiogaming.net/privkey.pem', 'utf8');
 const certificate = fs.readFileSync('/etc/letsencrypt/live/imperiogaming.net/cert.pem', 'utf8');
@@ -31,11 +31,13 @@ var server = https.createServer(options, app);
 //appHttp.all('*', (req, res) => res.redirect(301, 'https://localhost:3900'));
 //const httpServer = http.createServer(appHttp);
 
- 
-app.listen(port, ()=>{
+server.listen(port, () => {
+	console.log("server https starting on port : " + port);
+});
+/*app.listen(port, ()=>{
   console.log("hello");
 });
-/*connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
+connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
   if (error) throw error;
   console.log('The solution is: ', results[0].solution);
 });
