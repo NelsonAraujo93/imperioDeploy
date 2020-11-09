@@ -1,0 +1,30 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Api RESTFull",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Vagos Studios S.a.S (Nelson Araujo)",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "connect-multiparty": "^2.2.0",
+    "cookie-parser": "^1.4.5",
+    "cookieparser": "^0.1.0",
+    "dotenv": "^8.2.0",
+    "epayco-sdk-node": "^1.0.1",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.27.0",
+    "mysql": "^2.18.1",
+    "nodemailer": "^6.4.11",
+    "validator": "^13.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
