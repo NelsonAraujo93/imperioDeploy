@@ -36,6 +36,7 @@ var controller = {
      */
     saveUser: async (req, res) => {
         var params = req.body;
+        console.log('params');
         try {
             var validate_fullName = !validator.isEmpty(params.full_name);
             var validate_email = !validator.isEmpty(params.email);
@@ -45,7 +46,7 @@ var controller = {
         } catch (err) {
             return res.status(404).send({
                 status: 'error',
-                message: 'datos imcompletos'
+                message: 'datos imcompletos' + err
             });
         }
 
@@ -61,6 +62,7 @@ var controller = {
                 username: params.user_name,
                 password: params.password,
             };
+            console.log('hi');
             user.password = await bcrypt.hash(params.password, 8);
             dbConnection.query("INSERT INTO users (full_name, country_code, user_type, email) VALUES  ( '" +user.fullName + "', '" + user.country + "', '" + user.userType + "', '" + user.email + "')" ,async (err, result) => {
                 if (err){
