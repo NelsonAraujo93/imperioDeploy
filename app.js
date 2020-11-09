@@ -10,7 +10,7 @@ var app = express();
 //ejecutar express
 
 //cargar las rutas
-var adminRoutes = require('./routes/admin');
+var adminRoutes = require('./routes/route');
 
 //middlewares algo que se ejecuta antes de las rutas o las url
 app.use(bodyParser.urlencoded({ extended: false }));
