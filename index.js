@@ -6,7 +6,7 @@ const port = 3900;
 //const pott = 8080;
 const fs = require('fs');
 //const https = require('https');
-const https = require('http');
+const https = require('https');
 
 const privateKey = fs.readFileSync('/etc/letsencrypt/live/imperiogaming.net/privkey.pem', 'utf8');
 const certificate = fs.readFileSync('/etc/letsencrypt/live/imperiogaming.net/cert.pem', 'utf8');
