@@ -27,11 +27,11 @@ app.use((req, res, next) => {
 
 //prefijos a las rutas
 
-app.use('/', express.static('imperApp',{redirect:false}));
+app.use('/', express.static('imperioApp',{redirect:false}));
 app.use('/imperio', adminRoutes);
 
 app.get('*', function(req,res,next){
-    res.sendFile(path.resolve('imperApp/index.html'));
+    res.sendFile(path.resolve('imperioApp/index.html'));
 });
 //exportar el modulo (fichero actual)
 
