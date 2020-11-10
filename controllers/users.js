@@ -2161,6 +2161,7 @@ var controller = {
         }
         var file_path = params.id ? req.files.image.path : req.files.file0.path;
         //en servidor
+        console.log(file_path);
         var file_name = file_path.split('/')[2];
         var file_ext = file_name.split('.')[1];
         //var file_name = file_path.split('\\')[1];
