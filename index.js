@@ -28,7 +28,7 @@ var server = https.createServer(options, app);
 */
 //var server = https.createServer(options, app);
 
-//appHttp.all('*', (req, res) => res.redirect(301, 'https://localhost:3900'));
+app.all('*', (req, res) => res.redirect(301, 'https://imperiogaming.net:3900'));
 //const server = http.createServer(app);
 
 app.listen(port, () => {
