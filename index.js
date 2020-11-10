@@ -5,8 +5,8 @@ const app = require('./app'); //importo el modulo app
 const port = 3900;
 //const pott = 8080;
 const fs = require('fs');
-//const https = require('https');
-const https = require('https');
+const http = require('http');
+/*const https = require('https');
 
 const privateKey = fs.readFileSync('/etc/letsencrypt/live/imperiogaming.net/privkey.pem', 'utf8');
 const certificate = fs.readFileSync('/etc/letsencrypt/live/imperiogaming.net/cert.pem', 'utf8');
@@ -25,11 +25,11 @@ var server = https.createServer(options, app);
 	//key: privateKey,
 	//cert: certificate,
 //};
-
+*/
 //var server = https.createServer(options, app);
 
 //appHttp.all('*', (req, res) => res.redirect(301, 'https://localhost:3900'));
-//const httpServer = http.createServer(appHttp);
+const server = http.createServer(app);
 
 server.listen(port, () => {
 	console.log("server https starting on port : " + port);
