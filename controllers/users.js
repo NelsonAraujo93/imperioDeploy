@@ -439,6 +439,7 @@ var controller = {
      * 
      */
     loadGames:  (req, res ) => {
+        console.log('hai');
         dbConnection.query('SELECT * FROM games' ,(err, result) => {
             if (err){
                 console.log(dbConnection.state);
