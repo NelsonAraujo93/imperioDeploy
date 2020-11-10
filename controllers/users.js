@@ -2161,10 +2161,10 @@ var controller = {
         }
         var file_path = params.id ? req.files.image.path : req.files.file0.path;
         //en servidor
-        // var file_name = file_path.split('/')[2];
-        // var file_ext = file_name.split('.')[1];
-        var file_name = file_path.split('\\')[1];
-        var file_ext = file_name.split('\.')[1];
+        var file_name = file_path.split('/')[2];
+        var file_ext = file_name.split('.')[1];
+        //var file_name = file_path.split('\\')[1];
+        //var file_ext = file_name.split('\.')[1];
         if(file_ext !='png' && file_ext !='jpg' && file_ext !='jpeg'){
             fs.unlink(file_path,(err)=>{
                 return res.status(200).send({
@@ -2379,10 +2379,10 @@ var controller = {
        }
        var file_path = params.id ? req.files.rules.path : req.files.file0.path;
        //en servidor
-       // var file_name = file_path.split('/')[2];
-       // var file_ext = file_name.split('.')[1];
-       var file_name = file_path.split('\\')[1];
-       var file_ext = file_name.split('\.')[1];
+       var file_name = file_path.split('/')[2];
+       var file_ext = file_name.split('.')[1];
+       //var file_name = file_path.split('\\')[1];
+       //var file_ext = file_name.split('\.')[1];
        if(file_ext !='pdf'){
         fs.unlink(file_path,(err)=>{
             return res.status(200).send({
