@@ -441,11 +441,15 @@ var controller = {
     loadGames:  (req, res ) => {
         dbConnection.query('SELECT * FROM games' ,(err, result) => {
             if (err){
+                console.log(dbConnection.state);
+                console.log(err);
                 return res.status(404).send({
                     status: 'error',
                     message: 'on load games' + err
                 });
             }else{
+                console.log(dbConnection.state);
+                console.log(err);
                 return res.status(200).send({
                     status: 'Ok',
                     message: 'Juegos cargados',
