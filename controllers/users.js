@@ -28,7 +28,7 @@ require('dotenv').config();
 const configMensaje = require('../controllers/configMensajes');*/
 
 var controller = {
-
+    
     /**
      * Funcion name:  saveUser
      * Funcionalidad: Guarda un usuario en la base de datos
@@ -450,7 +450,7 @@ var controller = {
                 });
             }else{
                 console.log(dbConnection.state);
-                console.log(err);
+                console.log(result);
                 return res.status(200).send({
                     status: 'Ok',
                     message: 'Juegos cargados',
