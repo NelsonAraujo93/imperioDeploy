@@ -26,12 +26,11 @@ var server = https.createServer(options, app);*/
 	//cert: certificate,
 //};
 
-var server = https.createServer(app);
 
 //appHttp.all('*', (req, res) => res.redirect(301, 'https://localhost:3900'));
 //const httpServer = http.createServer(appHttp);
 
-server.listen(port, () => {
+app.listen(port, () => {
 	console.log("server https starting on port : " + port);
 });
 /*app.listen(port, ()=>{
