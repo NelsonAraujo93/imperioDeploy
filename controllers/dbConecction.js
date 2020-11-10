@@ -26,7 +26,7 @@ var user ={
 console.log('hi');
 var functions= {
   saveUser: async (req, res) => {
-    user.password = await bcrypt.hash(params.password, 8);
+    user.password = await bcrypt.hash(user.password, 8);
     connection.query("INSERT INTO users (full_name, country_code, user_type, email) VALUES  ( '" +user.fullName + "', '" + user.country + "', '" + user.userType + "', '" + user.email + "')" ,async (err, result) => {
       if (err){
           return res.status(404).send({
