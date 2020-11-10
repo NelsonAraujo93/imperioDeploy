@@ -2047,6 +2047,7 @@ var controller = {
      * 
      */
     loadImages:  (req, res ) => {
+        console.log(res);
         var params=req.params.image;
         var path_file= './images/' + params;
         fs.exists(path_file, (exists)=>{
