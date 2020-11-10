@@ -218,7 +218,7 @@ var controller = {
                         message: 'El usuario no ha sido encontrado o la contraseña es incorrecta'
                     });
                 }
-                if (result.length === 0 || !(await bcrypt.compare(params.pass, result[0].pass))) {
+                if (result.length === 0) {
                     dbConnection.query("SELECT * FROM login  WHERE user_name = ?", params.email,  async (err, result) => {
                         console.log(result);
                         if (!result.length>0 || !(await bcrypt.compare(params.pass, result[0].password))) {
@@ -261,35 +261,42 @@ var controller = {
                         }
                     });
                 } else {
-                    var id = result[0].user_id;
+                    if(await bcrypt.compare(params.pass, result[0].pass)){
+                        var id = result[0].user_id;
                     
-                    this.userComplete=result[0];
-                    /*
-                    let token = jwt.sign({id}, process.env.JWT_SECRET,{
-                        expiresIn: process.env.JWT_EXPIRES_IN
-                    });
-                    var cookieOptions = {
-                        expires: new Date(
-                            Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
-                        ),
-                        httpOnly:true
-                    };
-                    res.cookie('jwt', token, cookieOptions);*/
-                    dbConnection.query("SELECT user_type FROM users  WHERE id = ?", id,  async (err, result) => {
-                        if (err) {
-                            return res.status(404).send({
-                                status: 'error',
-                                message: 'El usuario no ha sido encontrado o la contraseña es incorrecta'
-                            });
-                        } else {
-                            this.userComplete.user_type=result[0].user_type;
-                            return res.status(200).send({
-                                status: 'Ok',
-                                message: 'Bienvenido' + result[0].user_name,
-                                data: this.userComplete
-                            });
-                        }
-                    });
+                        this.userComplete=result[0];
+                        /*
+                        let token = jwt.sign({id}, process.env.JWT_SECRET,{
+                            expiresIn: process.env.JWT_EXPIRES_IN
+                        });
+                        var cookieOptions = {
+                            expires: new Date(
+                                Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+                            ),
+                            httpOnly:true
+                        };
+                        res.cookie('jwt', token, cookieOptions);*/
+                        dbConnection.query("SELECT user_type FROM users  WHERE id = ?", id,  async (err, result) => {
+                            if (err) {
+                                return res.status(404).send({
+                                    status: 'error',
+                                    message: 'El usuario no ha sido encontrado o la contraseña es incorrecta'
+                                });
+                            } else {
+                                this.userComplete.user_type=result[0].user_type;
+                                return res.status(200).send({
+                                    status: 'Ok',
+                                    message: 'Bienvenido' + result[0].user_name,
+                                    data: this.userComplete
+                                });
+                            }
+                        });
+                    }else{
+                        return res.status(404).send({
+                            status: 'error',
+                            message: 'El usuario no ha sido encontrado o la contraseña es incorrecta'
+                        });
+                    }
                 }
             });
         } else {
