@@ -30,8 +30,9 @@ var server = https.createServer(options, app);*/
 
 //appHttp.all('*', (req, res) => res.redirect(301, 'https://localhost:3900'));
 //const httpServer = http.createServer(appHttp);
+const server = http.createServer(app);
 
-app.listen(port, () => {
+server.listen(port, () => {
 	console.log("server http starting on port : " + port);
 });
 /*app.listen(port, ()=>{
