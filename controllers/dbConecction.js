@@ -13,11 +13,47 @@ const connection = mysql.createConnection({
   database : process.env.DATABASE
 });
 console.log(connection.state);
-connection.connect(function(err) {
-  if (err) {
-    console.log(err);
-    throw err; 
-    }
 
+var user ={
+  fullName:'nelson',
+  country:'CO',
+  userType: 'user',
+  email:'nelsonaraujoparedes@gmail.com',
+  username: 'shinra',
+  password: 'shinra17',
+};
+console.log('hi');
+user.password = await bcrypt.hash(params.password, 8);
+connection.query("INSERT INTO users (full_name, country_code, user_type, email) VALUES  ( '" +user.fullName + "', '" + user.country + "', '" + user.userType + "', '" + user.email + "')" ,async (err, result) => {
+  if (err){
+      return res.status(404).send({
+          status: 'error',
+          message: 'on create user' + err
+      });
+  }else{
+      connection.query("INSERT INTO login (email,user_name,password,user_id) VALUES ('" + user.email + "', '" + user.username+ "','" + user.password + "',LAST_INSERT_ID())",async (err, result) =>{
+          if(err){
+              return res.status(404).send({
+                  status: 'error',
+                  message: 'on create login' + err
+              });
+          }else{
+              connection.query("INSERT INTO user_points (user_id, points) VALUES (LAST_INSERT_ID() , 0)", async (err, result) =>{
+                  if(err){
+                      return res.status(404).send({
+                          status: 'error',
+                          message: 'on create user_points' + err
+                      });
+                      
+                  }else{
+                      return res.status(200).send({
+                          status: 'Ok',
+                          message: 'Usuario Creado'
+                      });
+                  }
+              });
+          }
+      });
+  }
 });
 module.exports = connection;
