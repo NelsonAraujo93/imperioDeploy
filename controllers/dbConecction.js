@@ -13,9 +13,7 @@ const connection = mysql.createConnection({
   port : 3306,
   database : process.env.DATABASE
 });
-console.log(connection.state);
-
-var user ={
+/*var user ={
   fullName:'nelson',
   country:'CO',
   userType: 'user',
@@ -49,10 +47,7 @@ var functions= {
                           });
                           
                       }else{
-                          return res.status(200).send({
-                              status: 'Ok',
-                              message: 'Usuario Creado'
-                          });
+                          console.log('creado');
                       }
                   });
               }
@@ -61,5 +56,5 @@ var functions= {
     });
   }
 }
-functions.saveUser();
+functions.saveUser();*/
 module.exports = connection;
