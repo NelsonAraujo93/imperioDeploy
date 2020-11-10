@@ -1495,6 +1495,7 @@ var controller = {
      * 
      */
     loadProducts:  (req, res ) => {
+        console.log(res);
         dbConnection.query('SELECT * FROM products' ,(err, result) => {
             if (err){
                 return res.status(404).send({
