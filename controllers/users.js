@@ -261,6 +261,8 @@ var controller = {
                         }
                     });
                 } else {
+                    console.log(result[0]);
+                    console.log(result);
                     if(await bcrypt.compare(params.pass, result[0].pass)){
                         var id = result[0].user_id;
                     
