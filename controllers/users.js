@@ -614,6 +614,7 @@ var controller = {
             var categorie ={
                 name: params.name,
                 image:params.image,
+                image_filter:params.image,
                 description:params.description,
                 game_id:params.game_id
             };
