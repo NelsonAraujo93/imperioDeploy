@@ -36,7 +36,6 @@ var controller = {
      */
     saveUser: async (req, res) => {
         var params = req.body;
-        console.log('params');
         try {
             var validate_fullName = !validator.isEmpty(params.full_name);
             var validate_email = !validator.isEmpty(params.email);
@@ -62,7 +61,6 @@ var controller = {
                 username: params.user_name,
                 password: params.password,
             };
-            console.log('hi');
             user.password = await bcrypt.hash(params.password, 8);
             dbConnection.query("INSERT INTO users (full_name, country_code, user_type, email) VALUES  ( '" +user.fullName + "', '" + user.country + "', '" + user.userType + "', '" + user.email + "')" ,async (err, result) => {
                 if (err){
@@ -211,7 +209,6 @@ var controller = {
         }
         if (validate_email && validate_pass) {
             dbConnection.query("SELECT * FROM login WHERE email = ?", params.email,  async (err, result) => {
-                console.log(result.length);
                 if(!result){
                     return res.status(404).send({
                         status: 'error',
@@ -220,7 +217,6 @@ var controller = {
                 }
                 if (result.length === 0) {
                     dbConnection.query("SELECT * FROM login  WHERE user_name = ?", params.email,  async (err, result) => {
-                        console.log(result);
                         if (!result.length>0 || !(await bcrypt.compare(params.pass, result[0].password))) {
                             return res.status(401).send({
                                 status: 'error',
@@ -249,7 +245,6 @@ var controller = {
                                         message: 'El usuario no ha sido encontrado o la contraseña es incorrecta'
                                     });
                                 } else {
-                                    console.log('hola')
                                     this.userComplete.user_type=result[0].user_type;
                                     return res.status(200).send({
                                         status: 'Ok',
@@ -316,7 +311,6 @@ var controller = {
         try {
             var validate_id = !validator.isEmpty(toString(params.id));
         } catch (err) {
-            console.log(err)
             return res.status(404).send({
                 status: 'error',
                 message: 'datos imcompletos' + err
@@ -453,7 +447,6 @@ var controller = {
      * 
      */
     loadGames:  (req, res ) => {
-        console.log('hai');
         dbConnection.query('SELECT * FROM games' ,(err, result) => {
             if (err){
                 console.log(dbConnection.state);
@@ -463,8 +456,6 @@ var controller = {
                     message: 'on load games' + err
                 });
             }else{
-                console.log(dbConnection.state);
-                console.log(result);
                 return res.status(200).send({
                     status: 'Ok',
                     message: 'Juegos cargados',
@@ -784,13 +775,29 @@ var controller = {
             var validate_secondPlace = !validator.isEmpty(params.second_place);
             var validate_thirdPlace = !validator.isEmpty(params.third_place);
 
+            var tournament ={
+                validate_gameId : params.game_id,
+                validate_name : params.name,
+                validate_categorieId : params.categorie_id,
+                validate_urlGt : params.url_GT,
+                validate_endAt : params.end_at,
+                validate_image : params.image,
+                validate_rules : params.rules,
+                validate_creatorId : params.creator_id,
+                validate_usersCapacity : params.users_capacity,
+                validate_firstPlace : params.first_place,
+                validate_secondPlace : params.second_place,
+                validate_thirdPlace : params.third_place
+            };
+
+            console.log(JSON.stringify(tournament));
         } catch (err) {
             return res.status(404).send({
                 status: 'error',
                 message: 'datos imcompletos2'
             });
         }
-        //crear objeto
+            //crear objeto
         var tournament ={
             game_id : params.game_id,
             name : params.name,
@@ -910,7 +917,6 @@ var controller = {
                 });
             }else{
                 var a = result;
-                console.log(a)
                 if(a.length > 0){
                     return res.status(200).send({
                         status: 'Ok',
@@ -2056,7 +2062,6 @@ var controller = {
      * 
      */
     loadImages:  (req, res ) => {
-        console.log(res);
         var params=req.params.image;
         var path_file= './images/' + params;
         fs.exists(path_file, (exists)=>{
@@ -2162,7 +2167,6 @@ var controller = {
         }
         var file_path = params.id ? req.files.image.path : req.files.file0.path;
         //en servidor
-        console.log(file_path);
         var file_name = file_path.split('/')[1];
         var file_ext = file_name.split('.')[1];
         //var file_name = file_path.split('\\')[1];
