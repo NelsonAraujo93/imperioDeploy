@@ -835,7 +835,7 @@ var controller = {
                 third_place : params.third_place
             };
 
-            console.log(tournament);
+            console.log(''+tournament);
             return res.status(404).send({
                 status: 'error',
                 message: 'datos imcompletos'
