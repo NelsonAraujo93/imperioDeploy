@@ -820,6 +820,22 @@ var controller = {
                 }
             });
         } else {
+            var tournament ={
+                game_id : params.game_id,
+                name : params.name,
+                categorie_id : params.categorie_id,
+                url_GT : params.url_GT,
+                end_at : params.end_at,
+                image : params.image,
+                rules : params.rules,
+                creator_id : params.creator_id,
+                users_capacity : params.users_capacity,
+                first_place : params.first_place,
+                second_place : params.second_place,
+                third_place : params.third_place
+            };
+
+            console.log(tournament);
             return res.status(404).send({
                 status: 'error',
                 message: 'datos imcompletos'
@@ -2388,7 +2404,7 @@ var controller = {
        }
        var file_path = params.id ? req.files.rules.path : req.files.file0.path;
        //en servidor
-       var file_name = file_path.split('/')[2];
+       var file_name = file_path.split('/')[1];
        var file_ext = file_name.split('.')[1];
        //var file_name = file_path.split('\\')[1];
        //var file_ext = file_name.split('\.')[1];
