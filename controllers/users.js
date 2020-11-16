@@ -772,9 +772,9 @@ var controller = {
         var params = req.body;
         try {
             var validate_name = !validator.isEmpty(params.name);
-            var validate_creatorId = !validator.isEmpty(params.creator_id.toString());
-            var validate_gameId = !validator.isEmpty(params.game_id.toString());
-            var validate_categorieId = !validator.isEmpty(params.categorie_id.toString());
+            var validate_creatorId = !validator.isEmpty(params.creator_id);
+            var validate_gameId = !validator.isEmpty(params.game_id);
+            var validate_categorieId = !validator.isEmpty(params.categorie_id);
             var validate_urlGt = !validator.isEmpty(params.url_GT);
             var validate_endAt = !validator.isEmpty(params.end_at);
             var validate_image = !validator.isEmpty(params.image);
@@ -784,22 +784,6 @@ var controller = {
             var validate_secondPlace = !validator.isEmpty(params.second_place);
             var validate_thirdPlace = !validator.isEmpty(params.third_place);
 
-            var tournament ={
-                validate_gameId : params.game_id,
-                validate_name : params.name,
-                validate_categorieId : params.categorie_id,
-                validate_urlGt : params.url_GT,
-                validate_endAt : params.end_at,
-                validate_image : params.image,
-                validate_rules : params.rules,
-                validate_creatorId : params.creator_id,
-                validate_usersCapacity : params.users_capacity,
-                validate_firstPlace : params.first_place,
-                validate_secondPlace : params.second_place,
-                validate_thirdPlace : params.third_place
-            };
-
-            console.log(JSON.stringify(tournament));
         } catch (err) {
             return res.status(404).send({
                 status: 'error',
