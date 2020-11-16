@@ -790,7 +790,9 @@ var controller = {
             });
         }
 
-        if (validate_creatorId && validate_name && validate_gameId && validate_categorieId && validate_urlGt && validate_image && validate_endAt && validate_rules && validate_usersCapacity && validate_firstPlace && validate_secondPlace && validate_thirdPlace) {
+        if (validate_creatorId && validate_name && validate_gameId && validate_categorieId && validate_urlGt && 
+            validate_image && validate_endAt && validate_rules && validate_usersCapacity && validate_firstPlace && 
+            validate_secondPlace && validate_thirdPlace) {
             //crear objeto
             var tournament ={
                 game_id : params.game_id,
@@ -835,7 +837,7 @@ var controller = {
                 third_place : params.third_place
             };
 
-            console.log(''+tournament);
+            console.log(JSON.stringify(tournament));
             return res.status(404).send({
                 status: 'error',
                 message: 'datos imcompletos'
