@@ -772,9 +772,9 @@ var controller = {
         var params = req.body;
         try {
             var validate_name = !validator.isEmpty(params.name);
-            var validate_creatorId = !validator.isEmpty(params.creator_id);
-            var validate_gameId = !validator.isEmpty(params.game_id);
-            var validate_categorieId = !validator.isEmpty(params.categorie_id);
+            var validate_creatorId = !validator.isEmpty(params.creator_id.toString());
+            var validate_gameId = !validator.isEmpty(params.game_id.toString());
+            var validate_categorieId = !validator.isEmpty(params.categorie_id.toString());
             var validate_urlGt = !validator.isEmpty(params.url_GT);
             var validate_endAt = !validator.isEmpty(params.end_at);
             var validate_image = !validator.isEmpty(params.image);
@@ -790,60 +790,34 @@ var controller = {
                 message: 'datos imcompletos2'
             });
         }
-
-        if (validate_creatorId && validate_name && validate_gameId && validate_categorieId && validate_urlGt && 
-            validate_image && validate_endAt && validate_rules && validate_usersCapacity && validate_firstPlace && 
-            validate_secondPlace && validate_thirdPlace) {
-            //crear objeto
-            var tournament ={
-                game_id : params.game_id,
-                name : params.name,
-                categorie_id : params.categorie_id,
-                url_GT : params.url_GT,
-                end_at : params.end_at,
-                image : params.image,
-                rules : params.rules,
-                creator_id : params.creator_id,
-                users_capacity : params.users_capacity,
-                first_place : params.first_place,
-                second_place : params.second_place,
-                third_place : params.third_place
-            };
-            dbConnection.query("INSERT INTO tournaments SET  ?", tournament ,(err, result) => {
-                if (err){
-                    return res.status(404).send({
-                        status: 'error',
-                        message: 'on create tournament' + err
-                    });
-                }else{
-                    return res.status(200).send({
-                        status: 'Ok',
-                        message: 'Torneo creado'
-                    });
-                }
-            });
-        } else {
-            var tournament ={
-                game_id : params.game_id,
-                name : params.name,
-                categorie_id : params.categorie_id,
-                url_GT : params.url_GT,
-                end_at : params.end_at,
-                image : params.image,
-                rules : params.rules,
-                creator_id : params.creator_id,
-                users_capacity : params.users_capacity,
-                first_place : params.first_place,
-                second_place : params.second_place,
-                third_place : params.third_place
-            };
-
-            console.log(JSON.stringify(tournament));
-            return res.status(404).send({
-                status: 'error',
-                message: 'datos imcompletos'
-            });
-        }
+        //crear objeto
+        var tournament ={
+            game_id : params.game_id,
+            name : params.name,
+            categorie_id : params.categorie_id,
+            url_GT : params.url_GT,
+            end_at : params.end_at,
+            image : params.image,
+            rules : params.rules,
+            creator_id : params.creator_id,
+            users_capacity : params.users_capacity,
+            first_place : params.first_place,
+            second_place : params.second_place,
+            third_place : params.third_place
+        };
+        dbConnection.query("INSERT INTO tournaments SET  ?", tournament ,(err, result) => {
+            if (err){
+                return res.status(404).send({
+                    status: 'error',
+                    message: 'on create tournament' + err
+                });
+            }else{
+                return res.status(200).send({
+                    status: 'Ok',
+                    message: 'Torneo creado'
+                });
+            }
+        });
     },
 
     /**
