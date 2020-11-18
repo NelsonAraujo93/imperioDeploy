@@ -774,23 +774,6 @@ var controller = {
             var validate_firstPlace = !validator.isEmpty(params.first_place);
             var validate_secondPlace = !validator.isEmpty(params.second_place);
             var validate_thirdPlace = !validator.isEmpty(params.third_place);
-
-            var tournament ={
-                validate_gameId : params.game_id,
-                validate_name : params.name,
-                validate_categorieId : params.categorie_id,
-                validate_urlGt : params.url_GT,
-                validate_endAt : params.end_at,
-                validate_image : params.image,
-                validate_rules : params.rules,
-                validate_creatorId : params.creator_id,
-                validate_usersCapacity : params.users_capacity,
-                validate_firstPlace : params.first_place,
-                validate_secondPlace : params.second_place,
-                validate_thirdPlace : params.third_place
-            };
-
-            console.log(JSON.stringify(tournament));
         } catch (err) {
             return res.status(404).send({
                 status: 'error',
