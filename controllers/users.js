@@ -1107,7 +1107,7 @@ var controller = {
      */
     createTicket:  async (req, res ) => {
         var id;
-        if ( req.cookies.jwt){
+        /*if ( req.cookies.jwt){
             try {
                 //verify token- and see the user
                 const decoded = await promisify(jwt.verify)(req.cookies.jwt,process.env.JWT_SECRET);
@@ -1120,7 +1120,7 @@ var controller = {
                 status: 'Login',
                 mesage: 'debe logear'
             });
-        }
+        }*/
         var params = req.body;
         try {
             var validate_price = !validator.isEmpty(params.price);
