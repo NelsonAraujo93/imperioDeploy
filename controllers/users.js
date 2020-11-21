@@ -771,9 +771,6 @@ var controller = {
             var validate_image = !validator.isEmpty(params.image);
             var validate_rules = !validator.isEmpty(params.rules);
             var validate_usersCapacity = !validator.isEmpty(params.users_capacity);
-            var validate_firstPlace = !validator.isEmpty(params.first_place);
-            var validate_secondPlace = !validator.isEmpty(params.second_place);
-            var validate_thirdPlace = !validator.isEmpty(params.third_place);
         } catch (err) {
             return res.status(404).send({
                 status: 'error',
@@ -790,10 +787,7 @@ var controller = {
             image : params.image,
             rules : params.rules,
             creator_id : params.creator_id,
-            users_capacity : params.users_capacity,
-            first_place : params.first_place,
-            second_place : params.second_place,
-            third_place : params.third_place
+            users_capacity : params.users_capacity
         };
         dbConnection.query("INSERT INTO tournaments SET  ?", tournament ,(err, result) => {
             if (err){
@@ -838,16 +832,13 @@ var controller = {
             var validate_image = !validator.isEmpty(params.image);
             var validate_rules = !validator.isEmpty(params.rules);
             var validate_usersCapacity = !validator.isEmpty(toString(params.users_capacity));
-            var validate_firstPlace = !validator.isEmpty(toString(params.first_place));
-            var validate_secondPlace = !validator.isEmpty(toString(params.second_place));
-            var validate_thirdPlace = !validator.isEmpty(toString(params.third_place));
         } catch (err) {
             return res.status(404).send({
                 status: 'error',
                 message: 'datos imcompletos2'
             });
         }
-        if (validate_name && validate_urlGt && validate_image && validate_rules && validate_usersCapacity && validate_firstPlace && validate_secondPlace && validate_thirdPlace) {
+        if (validate_name && validate_urlGt && validate_image && validate_rules && validate_usersCapacity) {
 
             //crear objeto
             var tournament ={
@@ -855,10 +846,7 @@ var controller = {
                 url_GT : params.url_GT,
                 image : params.image,
                 rules : params.rules,
-                users_capacity : params.users_capacity,
-                first_place : params.first_place,
-                second_place : params.second_place,
-                third_place : params.third_place
+                users_capacity : params.users_capacity
             };
             var update=[
                 tournament,
@@ -1077,6 +1065,31 @@ var controller = {
             }
         });
     },
+         /**
+     * Funcion name:  loadUsersByTorunamentId
+     * Funcionalidad: carga el listado de torneos por usuario
+     * 
+     */
+    loadUsersByTorunamentId:  (req, res ) => {
+        var params= req.params;
+        var ids = [];
+        var tournaments = [];
+        var params= req.params;
+        dbConnection.query('SELECT tickets_users.user_id,tournaments_subscriptions.created_at,tournaments.name, categories.name as cat_name  FROM `tickets_users`INNER JOIN `tournaments_subscriptions` ON tickets_users.id=tournaments_subscriptions.ticket_users_id INNER JOIN `tournaments` ON tournaments_subscriptions.tournament_id=tournaments.id  INNER JOIN `categories` ON tournaments.categorie_id=categories.id WHERE tickets_users.user_id = ?', params.id ,async (err, result) => {
+            if (err){
+                return res.status(404).send({
+                    status: 'error',
+                    message: 'on load categories' + err
+                });
+            }else{
+                return res.status(200).send({
+                    status: 'Ok',
+                    message: "Torneos encontrados",
+                    data: await result
+                });
+            }
+        });
+    },
           /**
      * Funcion name:  loadTournamentUserCat
      * Funcionalidad: carga el listado de torneos por usuario
@@ -1084,7 +1097,8 @@ var controller = {
      */
     loadTournamentUserCat:  async (req, res ) => {
         var params= req.params;
-        dbConnection.query('SELECT tickets_users.user_id,tournaments_subscriptions.created_at,tournaments.name, categories.name as cat_name  FROM `tickets_users`INNER JOIN `tournaments_subscriptions` ON tickets_users.id=tournaments_subscriptions.ticket_users_id INNER JOIN `tournaments` ON tournaments_subscriptions.tournament_id=tournaments.id  INNER JOIN `categories` ON tournaments.categorie_id=categories.id WHERE tickets_users.user_id = ?', params.id ,async (err, result) => {
+        console.log(paramas);
+        dbConnection.query('SELECT users.* FROM `tournaments` INNER JOIN `tournaments_subscriptions` ON tournaments.id=tournaments_subscriptions.tournament_id INNER JOIN `tickets_users` on tournaments_subscriptions.ticket_users_id=tickets_users.id  INNER JOIN `users` ON tickets_users.user_id=users.id WHERE tournaments.id = ?', params.id ,async (err, result) => {
             if (err){
                 return res.status(404).send({
                     status: 'error',

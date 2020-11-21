@@ -19,6 +19,7 @@ router.get('/load-categories/:id', usersController.loadCategories);
 router.get('/load-categorie/:id', usersController.loadCategorieById);
 router.get('/load-tournaments/:id', usersController.loadTournamentsCategorie);
 router.get('/load-tournaments-users/:id', usersController.loadTournamentUser);
+router.get('/load-users-tournament-id/:id', usersController.loadUsersByTorunamentId);
 router.get('/load-tournaments-users-cat/:id', usersController.loadTournamentUserCat);
 router.get('/load-tournaments', usersController.loadTournaments);
 router.get('/load-tournament/:id', usersController.loadTournamentsById);
