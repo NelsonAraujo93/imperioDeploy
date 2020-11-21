@@ -1070,12 +1070,10 @@ var controller = {
      * Funcionalidad: carga el listado de torneos por usuario
      * 
      */
-    loadUsersByTorunamentId:  (req, res ) => {
+    loadUsersByTournamentId:  (req, res ) => {
         var params= req.params;
-        var ids = [];
-        var tournaments = [];
-        var params= req.params;
-        dbConnection.query('SELECT tickets_users.user_id,tournaments_subscriptions.created_at,tournaments.name, categories.name as cat_name  FROM `tickets_users`INNER JOIN `tournaments_subscriptions` ON tickets_users.id=tournaments_subscriptions.ticket_users_id INNER JOIN `tournaments` ON tournaments_subscriptions.tournament_id=tournaments.id  INNER JOIN `categories` ON tournaments.categorie_id=categories.id WHERE tickets_users.user_id = ?', params.id ,async (err, result) => {
+        console.log(params)
+        dbConnection.query('SELECT users.* FROM `tournaments` INNER JOIN `tournaments_subscriptions` ON tournaments.id=tournaments_subscriptions.tournament_id INNER JOIN `tickets_users` on tournaments_subscriptions.ticket_users_id=tickets_users.id  INNER JOIN `users` ON tickets_users.user_id=users.id WHERE tournaments.id = ?', params.id ,async (err, result) => {
             if (err){
                 return res.status(404).send({
                     status: 'error',
@@ -1097,8 +1095,7 @@ var controller = {
      */
     loadTournamentUserCat:  async (req, res ) => {
         var params= req.params;
-        console.log(paramas);
-        dbConnection.query('SELECT users.* FROM `tournaments` INNER JOIN `tournaments_subscriptions` ON tournaments.id=tournaments_subscriptions.tournament_id INNER JOIN `tickets_users` on tournaments_subscriptions.ticket_users_id=tickets_users.id  INNER JOIN `users` ON tickets_users.user_id=users.id WHERE tournaments.id = ?', params.id ,async (err, result) => {
+        dbConnection.query('SELECT tickets_users.user_id,tournaments_subscriptions.created_at,tournaments.name, categories.name as cat_name  FROM `tickets_users`INNER JOIN `tournaments_subscriptions` ON tickets_users.id=tournaments_subscriptions.ticket_users_id INNER JOIN `tournaments` ON tournaments_subscriptions.tournament_id=tournaments.id  INNER JOIN `categories` ON tournaments.categorie_id=categories.id WHERE tickets_users.user_id = ?', params.id ,async (err, result) => {
             if (err){
                 return res.status(404).send({
                     status: 'error',
