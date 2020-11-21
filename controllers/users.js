@@ -1575,7 +1575,7 @@ var controller = {
         var params = req.body;
         try {
             var validate_id = !validator.isEmpty(params.user_id);
-            var validate_points = !validator.isEmpty(params.points);
+            var validate_points = !validator.isEmpty(params.points.toString());
         } catch (err) {
             return res.status(404).send({
                 status: 'error',
