@@ -1073,7 +1073,7 @@ var controller = {
     loadUsersByTournamentId:  (req, res ) => {
         var params= req.params;
         console.log(params)
-        dbConnection.query('SELECT login.user_id,login.user_name FROM `tournaments` INNER JOIN `tournaments_subscriptions` ON tournaments.id=tournaments_subscriptions.tournament_id INNER JOIN `tickets_users` on tournaments_subscriptions.ticket_users_id=tickets_users.id INNER JOIN `login` ON tickets_users.user_id=login.user_id WHERE tournaments.id = ?', params.id ,async (err, result) => {
+        dbConnection.query('SELECT login.user_id,login.user_name,login.email,tickets_users.ticket_categorie FROM `tournaments` INNER JOIN `tournaments_subscriptions` ON tournaments.id=tournaments_subscriptions.tournament_id INNER JOIN `tickets_users` on tournaments_subscriptions.ticket_users_id=tickets_users.id INNER JOIN `login` ON tickets_users.user_id=login.user_id WHERE tournaments.id = ?', params.id ,async (err, result) => {
             if (err){
                 return res.status(404).send({
                     status: 'error',
