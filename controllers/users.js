@@ -771,6 +771,9 @@ var controller = {
             var validate_image = !validator.isEmpty(params.image);
             var validate_rules = !validator.isEmpty(params.rules);
             var validate_usersCapacity = !validator.isEmpty(params.users_capacity);
+            var validate_firstPlace = !validator.isEmpty(params.first_place);
+            var validate_secondPlace = !validator.isEmpty(params.second_place);
+            var validate_thirdPlace = !validator.isEmpty(params.third_place);
         } catch (err) {
             return res.status(404).send({
                 status: 'error',
@@ -787,7 +790,10 @@ var controller = {
             image : params.image,
             rules : params.rules,
             creator_id : params.creator_id,
-            users_capacity : params.users_capacity
+            users_capacity : params.users_capacity,
+            first_place : params.first_place,
+            second_place : params.second_place,
+            third_place : params.third_place
         };
         dbConnection.query("INSERT INTO tournaments SET  ?", tournament ,(err, result) => {
             if (err){
@@ -832,13 +838,16 @@ var controller = {
             var validate_image = !validator.isEmpty(params.image);
             var validate_rules = !validator.isEmpty(params.rules);
             var validate_usersCapacity = !validator.isEmpty(toString(params.users_capacity));
+            var validate_firstPlace = !validator.isEmpty(toString(params.first_place));
+            var validate_secondPlace = !validator.isEmpty(toString(params.second_place));
+            var validate_thirdPlace = !validator.isEmpty(toString(params.third_place));
         } catch (err) {
             return res.status(404).send({
                 status: 'error',
                 message: 'datos imcompletos2'
             });
         }
-        if (validate_name && validate_urlGt && validate_image && validate_rules && validate_usersCapacity) {
+        if (validate_name && validate_urlGt && validate_image && validate_rules && validate_usersCapacity && validate_firstPlace && validate_secondPlace && validate_thirdPlace) {
 
             //crear objeto
             var tournament ={
@@ -846,7 +855,10 @@ var controller = {
                 url_GT : params.url_GT,
                 image : params.image,
                 rules : params.rules,
-                users_capacity : params.users_capacity
+                users_capacity : params.users_capacity,
+                first_place : params.first_place,
+                second_place : params.second_place,
+                third_place : params.third_place
             };
             var update=[
                 tournament,
