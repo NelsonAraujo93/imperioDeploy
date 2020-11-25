@@ -761,7 +761,7 @@ var controller = {
             });
         }*/
         var params = req.body;
-        try {
+        /*try {
             var validate_name = !validator.isEmpty(params.name);
             var validate_creatorId = !validator.isEmpty(params.creator_id.toString());
             var validate_gameId = !validator.isEmpty(params.game_id.toString());
@@ -779,7 +779,7 @@ var controller = {
                 status: 'error',
                 message: 'datos imcompletos2'
             });
-        }
+        }*/
             //crear objeto
         var tournament ={
             game_id : params.game_id,
