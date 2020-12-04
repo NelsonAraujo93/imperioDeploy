@@ -1431,7 +1431,7 @@ var controller = {
      */
     loadFTicketById:  (req, res ) => {
         const params = req.body;
-        dbConnection.query('SELECT * FROM free_tickets WHERE id = ?', params.id ,(err, result) => {
+        dbConnection.query('SELECT * FROM free_tickets WHERE user_id = ?', params.id ,(err, result) => {
             if (err){
                 return res.status(404).send({
                     status: 'error',
@@ -1489,7 +1489,7 @@ var controller = {
                 fTicket,
                 params.id
             ]
-            dbConnection.query("UPDATE free_tickets SET  ? WHERE id = ?", update ,(err, result) => {
+            dbConnection.query("UPDATE free_tickets SET  ? WHERE user_id = ?", update ,(err, result) => {
                 if (err){
                     return res.status(404).send({
                         status: 'error',
@@ -1553,7 +1553,7 @@ var controller = {
                 fTicket,
                 params.id
             ]
-            dbConnection.query("UPDATE free_tickets SET  ? WHERE id = ?", update ,(err, result) => {
+            dbConnection.query("UPDATE free_tickets SET  ? WHERE user_id = ?", update ,(err, result) => {
                 if (err){
                     return res.status(404).send({
                         status: 'error',
