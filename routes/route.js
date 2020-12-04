@@ -64,6 +64,10 @@ router.post('/upload-image/:id?/:class?/:type?',md_uploadImage,usersController.u
 router.post('/upload-rule/:id?',md_uploadRule,usersController.uploadRule);
 router.post('/download-pdf', usersController.downloadPDF);
 router.post('/load-products-id', usersController.loadProductById);
+router.post('/create-free-tickets', usersController.createFreeTickets);
+router.post('/load-free-tickets-id', usersController.loadFTicketById);
+router.post('/edit-free-ticket-quantity', usersController.updateFTicketQuantity);
+router.post('/edit-free-ticket-month', usersController.updateFTicketMonth);
 //router.post('/formulario', usersController.formularioCorreo);
 
 

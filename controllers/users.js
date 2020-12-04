@@ -76,17 +76,26 @@ var controller = {
                                 message: 'on create login' + err
                             });
                         }else{
-                            dbConnection.query("INSERT INTO user_points (user_id, points) VALUES (LAST_INSERT_ID() , 0)", async (err, result) =>{
+                            dbConnection.query("INSERT INTO free_tickets (user_id, tickets) VALUES (LAST_INSERT_ID() , 2)",async (err, result) =>{
                                 if(err){
                                     return res.status(404).send({
                                         status: 'error',
-                                        message: 'on create user_points' + err
+                                        message: 'on create free_tickets' + err
                                     });
-                                    
                                 }else{
-                                    return res.status(200).send({
-                                        status: 'Ok',
-                                        message: 'Usuario Creado'
+                                    dbConnection.query("INSERT INTO user_points (user_id, points) VALUES (LAST_INSERT_ID() , 0)", async (err, result) =>{
+                                        if(err){
+                                            return res.status(404).send({
+                                                status: 'error',
+                                                message: 'on create user_points' + err
+                                            });
+                                            
+                                        }else{
+                                            return res.status(200).send({
+                                                status: 'Ok',
+                                                message: 'Usuario Creado'
+                                            });
+                                        }
                                     });
                                 }
                             });
@@ -1378,6 +1387,182 @@ var controller = {
                     return res.status(200).send({
                         status: 'Ok',
                         message: 'Product edited'
+                    });
+                }
+            });
+        } else {
+            return res.status(404).send({
+                status: 'error',
+                message: 'datos imcompletos'
+            });
+        }
+    },
+    /**
+     * Funcion name:  createFreeTickets
+     * Funcionalidad: carga el listado de productos
+     * 
+     */
+    createFreeTickets:  (req, res ) => {
+        const params = req.body;
+        const freeTickets={
+            user_id: params.id,
+            tickets: 2
+        }
+        dbConnection.query("INSERT INTO free_tickets SET = ?",freeTickets,async (err, result) => {
+            if (err){
+                return res.status(404).send({
+                    status: 'error',
+                    message: 'on create FTICKETS' + err
+                });
+            }else{
+                return res.status(200).send({
+                    status: 'Ok',
+                    message: 'FTICKETS Created',
+                    data: result[0]
+                });
+            }
+        });
+    },
+
+/**
+     * Funcion name:  loadFTicketById
+     * Funcionalidad: carga el listado de productos
+     * 
+     */
+    loadFTicketById:  (req, res ) => {
+        const params = req.body;
+        dbConnection.query('SELECT * FROM free_tickets WHERE id = ?', params.id ,(err, result) => {
+            if (err){
+                return res.status(404).send({
+                    status: 'error',
+                    message: 'on load FTICKETS' + err
+                });
+            }else{
+                return res.status(200).send({
+                    status: 'Ok',
+                    message: 'FTICKETS loaded',
+                    data: result[0]
+                });
+            }
+        });
+    },
+
+     /**
+     * Funcion name:   updateFTicketQuantity
+     * Funcionalidad: Edita los atributos de un producto
+     * 
+     */
+     updateFTicketQuantity:  async (req, res ) => {
+        var id;
+        /*if ( req.cookies.jwt){
+            try {
+                //verify token- and see the user
+                const decoded = await promisify(jwt.verify)(req.cookies.jwt,process.env.JWT_SECRET);
+                //check if the user exist
+                id=decoded.id;
+            } catch (error) {
+            }
+        }else{
+            return res.status(200).send({
+                status: 'Login',
+                mesage: 'debe logear'
+            });
+        }*/
+        var params = req.body;
+        try {
+            var validate_id = !validator.isEmpty(toString(params.id));
+            var validate_tickets = !validator.isEmpty(toString(params.ticekts));
+        } catch (err) {
+            return res.status(404).send({
+                status: 'error',
+                message: 'datos imcompletos2'
+            });
+        }
+
+        if (validate_id && validate_tickets) {
+
+            //crear objeto
+            var fTicket ={
+                tickets : params.tickets
+            };
+            var update=[
+                fTicket,
+                params.id
+            ]
+            dbConnection.query("UPDATE free_tickets SET  ? WHERE id = ?", update ,(err, result) => {
+                if (err){
+                    return res.status(404).send({
+                        status: 'error',
+                        message: 'on edit FTICKET' + err
+                    });
+                }else{
+                    return res.status(200).send({
+                        status: 'Ok',
+                        message: 'FTICKET edited'
+                    });
+                }
+            });
+        } else {
+            return res.status(404).send({
+                status: 'error',
+                message: 'datos imcompletos'
+            });
+        }
+    },
+
+    /**
+     * Funcion name:   updateFTicketMonth
+     * Funcionalidad: Edita los atributos de un producto
+     * 
+     */
+    updateFTicketMonth:  async (req, res ) => {
+        var id;
+        /*if ( req.cookies.jwt){
+            try {
+                //verify token- and see the user
+                const decoded = await promisify(jwt.verify)(req.cookies.jwt,process.env.JWT_SECRET);
+                //check if the user exist
+                id=decoded.id;
+            } catch (error) {
+            }
+        }else{
+            return res.status(200).send({
+                status: 'Login',
+                mesage: 'debe logear'
+            });
+        }*/
+        var params = req.body;
+        try {
+            var validate_id = !validator.isEmpty(toString(params.id));
+            var validate_date = !validator.isEmpty(params.date);
+        } catch (err) {
+            return res.status(404).send({
+                status: 'error',
+                message: 'datos imcompletos2'
+            });
+        }
+
+        if (validate_id && validate_date) {
+
+            //crear objeto
+            var fTicket ={
+                month : params.date,
+                tickets: 2
+            };
+            var update=[
+                fTicket,
+                params.id
+            ]
+            dbConnection.query("UPDATE free_tickets SET  ? WHERE id = ?", update ,(err, result) => {
+                if (err){
+                    return res.status(404).send({
+                        status: 'error',
+                        message: 'on edit FTICKET' + err
+                    });
+                }else{
+                    return res.status(200).send({
+                        status: 'Ok',
+                        message: 'FTICKET edited'
                     });
                 }
             });
