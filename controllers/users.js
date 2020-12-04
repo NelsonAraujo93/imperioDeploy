@@ -1408,7 +1408,7 @@ var controller = {
             user_id: params.id,
             tickets: 2
         }
-        dbConnection.query("INSERT INTO free_tickets SET = ?",freeTickets,async (err, result) => {
+        dbConnection.query("INSERT INTO `free_tickets` (`user_id`, `tickets`) VALUES ( '" +freeTickets.user_id + "', '" + freeTickets.tickets + "')",async (err, result) => {
             if (err){
                 return res.status(404).send({
                     status: 'error',
